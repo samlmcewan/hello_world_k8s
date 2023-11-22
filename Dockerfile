@@ -1,5 +1,6 @@
 FROM node:20-alpine
-WORKDIR /opt/service
+WORKDIR /app
 COPY . .
+RUN npx tsc
 CMD ["node", "dist/app.js"]
 EXPOSE 3000
