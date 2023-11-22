@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "es2022",
+    "strict": true,
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es6",
-    "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist"
+    "importHelpers": true
   },
-  "lib": ["es2015"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.test.*"]
 }
