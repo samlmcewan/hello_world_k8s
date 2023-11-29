@@ -1,9 +1,16 @@
 import express from 'express';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+const configVar = process.env.HELLO_WORLD_CONFIG_VAR || 'default-value';
+
 const app = express();
 const port = 3000;
 
 app.get('/', (req, res) => {
-  res.send('<h1 style="font-family: sans-serif;color:teal;">Hello World.</h1><ul><li>NodeJS</li><li>Express</li><li>TypeScript</li><li>Docker</li><li>k8s</li></ul>');
+  res.send(
+    `<h1>${configVar}</h1>`);
 });
 
 app.listen(port, () => {
