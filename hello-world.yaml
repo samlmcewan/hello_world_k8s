@@ -9,8 +9,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: hello-world-configmap
+  namespace: hello-world-ns
 data:
-  MESSAGE_KEY: hello-world-from-config-map
+  HELLO_WORLD_CONFIG_VAR: hello-world-from-config-map-2
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -34,10 +35,15 @@ spec:
       containers:
         - name: hello-world
           image: hello-world-sam
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - name: config-volume
-              mountPath: ./src/app.ts
+          imagePullPolicy: Never
+          env:
+            # Define the environment variable
+            - name: HELLO_WORLD_CONFIG_VAR # Notice that the case is different here
+                                        # from the key name in the ConfigMap.
+              valueFrom:
+                configMapKeyRef:
+                  name: hello-world-configmap           # The ConfigMap this value comes from.
+                  key: HELLO_WORLD_CONFIG_VAR # The key to fetch.
 ---
 apiVersion: v1
 kind: Service
